@@ -8,11 +8,13 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
       rel="stylesheet"
     />
+    <link rel="shortcut icon" href="7da0182d-1b3e-404e-8fb9-27f47dbd6113.jfif""
+    type="image/x-icon">
     <style>
       * {
         box-sizing: border-box;
       }
-      body {
+      s body {
         font-family: "Segoe UI", Tahoma, Arial, sans-serif;
         direction: rtl;
         padding: 16px;
@@ -42,6 +44,55 @@
       .header p {
         margin: 10px 0 0;
         opacity: 0.9;
+      }
+
+      /* Language Switcher */
+      .language-switcher {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        display: flex;
+        gap: 10px;
+      }
+
+      .lang-btn {
+        background: rgba(255, 255, 255, 0.2);
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        color: white;
+        padding: 8px 16px;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 0.9em;
+        font-weight: 500;
+        transition: all 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .lang-btn:hover {
+        background: rgba(255, 255, 255, 0.3);
+        border-color: rgba(255, 255, 255, 0.5);
+        transform: translateY(-2px);
+      }
+
+      .lang-btn.active {
+        background: white;
+        color: #667eea;
+        border-color: white;
+      }
+
+      @media (max-width: 768px) {
+        .language-switcher {
+          position: static;
+          justify-content: center;
+          margin-bottom: 15px;
+        }
+
+        .lang-btn {
+          font-size: 0.8em;
+          padding: 6px 12px;
+        }
       }
 
       .nav-tabs {
@@ -539,58 +590,87 @@
 
     <div class="app">
       <div class="header">
-        <h1><i class="fas fa-file-invoice"></i> نظام إدارة الفواتير</h1>
-        <p>نظام شامل لإدارة الفواتير والعملاء والمنتجات</p>
+        <div class="language-switcher">
+          <button class="lang-btn" onclick="changeLanguage('ar')" id="arBtn">
+            <i class="fas fa-globe"></i> العربية
+          </button>
+          <button class="lang-btn" onclick="changeLanguage('en')" id="enBtn">
+            <i class="fas fa-globe"></i> English
+          </button>
+        </div>
+        <h1>
+          <i class="fas fa-file-invoice"></i>
+          <span data-translate="app_title">نظام إدارة الفواتير</span>
+        </h1>
+        <p data-translate="app_subtitle">
+          نظام شامل لإدارة الفواتير والعملاء والمنتجات
+        </p>
       </div>
 
       <div class="nav-tabs">
         <button class="nav-tab active" onclick="showTab('dashboard')">
-          <i class="fas fa-tachometer-alt"></i> لوحة التحكم
+          <i class="fas fa-tachometer-alt"></i>
+          <span data-translate="dashboard">لوحة التحكم</span>
         </button>
         <button class="nav-tab" onclick="showTab('invoices')">
-          <i class="fas fa-file-invoice"></i> الفواتير
+          <i class="fas fa-file-invoice"></i>
+          <span data-translate="invoices">الفواتير</span>
         </button>
         <button class="nav-tab" onclick="showTab('products')">
-          <i class="fas fa-box"></i> المنتجات
+          <i class="fas fa-box"></i>
+          <span data-translate="products">المنتجات</span>
         </button>
         <button class="nav-tab" onclick="showTab('customers')">
-          <i class="fas fa-users"></i> العملاء
+          <i class="fas fa-users"></i>
+          <span data-translate="customers">العملاء</span>
         </button>
         <button class="nav-tab" onclick="showTab('settings')">
-          <i class="fas fa-cog"></i> الإعدادات
+          <i class="fas fa-cog"></i>
+          <span data-translate="settings">الإعدادات</span>
         </button>
       </div>
 
       <div class="tab-content">
         <!-- Dashboard Tab -->
         <div id="dashboard" class="tab-panel active">
-          <h2><i class="fas fa-chart-bar"></i> إحصائيات سريعة</h2>
+          <h2>
+            <i class="fas fa-chart-bar"></i>
+            <span data-translate="quick_stats">إحصائيات سريعة</span>
+          </h2>
           <div class="stats-grid">
             <div class="stat-card">
               <div class="stat-number" id="totalInvoices">0</div>
-              <div class="stat-label">إجمالي الفواتير</div>
+              <div class="stat-label" data-translate="total_invoices">
+                إجمالي الفواتير
+              </div>
             </div>
             <div class="stat-card">
               <div class="stat-number" id="totalRevenue">0</div>
-              <div class="stat-label">إجمالي الإيرادات</div>
+              <div class="stat-label" data-translate="total_revenue">
+                إجمالي الإيرادات
+              </div>
             </div>
             <div class="stat-card">
               <div class="stat-number" id="totalCustomers">0</div>
-              <div class="stat-label">إجمالي العملاء</div>
+              <div class="stat-label" data-translate="total_customers">
+                إجمالي العملاء
+              </div>
             </div>
             <div class="stat-card">
               <div class="stat-number" id="totalProducts">0</div>
-              <div class="stat-label">إجمالي المنتجات</div>
+              <div class="stat-label" data-translate="total_products">
+                إجمالي المنتجات
+              </div>
             </div>
           </div>
 
           <div class="row">
             <div class="col">
-              <h3>أحدث الفواتير</h3>
+              <h3 data-translate="recent_invoices">أحدث الفواتير</h3>
               <div id="recentInvoices"></div>
             </div>
             <div class="col">
-              <h3>أفضل العملاء</h3>
+              <h3 data-translate="top_customers">أفضل العملاء</h3>
               <div id="topCustomers"></div>
             </div>
           </div>
@@ -606,9 +686,13 @@
               margin-bottom: 20px;
             "
           >
-            <h2><i class="fas fa-file-invoice"></i> إدارة الفواتير</h2>
+            <h2>
+              <i class="fas fa-file-invoice"></i>
+              <span data-translate="invoice_management">إدارة الفواتير</span>
+            </h2>
             <button class="btn btn-primary" onclick="openInvoiceModal()">
-              <i class="fas fa-plus"></i> فاتورة جديدة
+              <i class="fas fa-plus"></i>
+              <span data-translate="new_invoice">فاتورة جديدة</span>
             </button>
           </div>
 
@@ -635,9 +719,13 @@
               margin-bottom: 20px;
             "
           >
-            <h2><i class="fas fa-box"></i> إدارة المنتجات</h2>
+            <h2>
+              <i class="fas fa-box"></i>
+              <span data-translate="product_management">إدارة المنتجات</span>
+            </h2>
             <button class="btn btn-primary" onclick="openProductModal()">
-              <i class="fas fa-plus"></i> منتج جديد
+              <i class="fas fa-plus"></i>
+              <span data-translate="new_product">منتج جديد</span>
             </button>
           </div>
 
@@ -664,9 +752,13 @@
               margin-bottom: 20px;
             "
           >
-            <h2><i class="fas fa-users"></i> إدارة العملاء</h2>
+            <h2>
+              <i class="fas fa-users"></i>
+              <span data-translate="customer_management">إدارة العملاء</span>
+            </h2>
             <button class="btn btn-primary" onclick="openCustomerModal()">
-              <i class="fas fa-plus"></i> عميل جديد
+              <i class="fas fa-plus"></i>
+              <span data-translate="new_customer">عميل جديد</span>
             </button>
           </div>
 
@@ -685,12 +777,17 @@
 
         <!-- Settings Tab -->
         <div id="settings" class="tab-panel">
-          <h2><i class="fas fa-cog"></i> إعدادات الشركة</h2>
+          <h2>
+            <i class="fas fa-cog"></i>
+            <span data-translate="company_settings">إعدادات الشركة</span>
+          </h2>
 
           <div class="row">
             <div class="col">
               <div class="form-group">
-                <label>اسم الشركة <span class="required">*</span></label>
+                <label data-translate="company_name"
+                  >اسم الشركة <span class="required">*</span></label
+                >
                 <input
                   type="text"
                   id="companyName"
@@ -701,7 +798,7 @@
             </div>
             <div class="col">
               <div class="form-group">
-                <label>رقم الهاتف</label>
+                <label data-translate="company_phone">رقم الهاتف</label>
                 <input type="text" id="companyPhone" placeholder="رقم الهاتف" />
               </div>
             </div>
@@ -710,7 +807,7 @@
           <div class="row">
             <div class="col">
               <div class="form-group">
-                <label>البريد الإلكتروني</label>
+                <label data-translate="company_email">البريد الإلكتروني</label>
                 <input
                   type="email"
                   id="companyEmail"
@@ -720,7 +817,9 @@
             </div>
             <div class="col">
               <div class="form-group">
-                <label>الموقع الإلكتروني</label>
+                <label data-translate="company_website"
+                  >الموقع الإلكتروني</label
+                >
                 <input
                   type="text"
                   id="companyWebsite"
@@ -731,7 +830,9 @@
           </div>
 
           <div class="form-group">
-            <label>عنوان الشركة <span class="required">*</span></label>
+            <label data-translate="company_address"
+              >عنوان الشركة <span class="required">*</span></label
+            >
             <textarea
               id="companyAddress"
               placeholder="عنوان الشركة الكامل"
@@ -743,8 +844,8 @@
           <div class="row">
             <div class="col">
               <div class="form-group">
-                <label
-                  >نسبة الضريبة الافتراضية (%)
+                <label data-translate="default_tax_rate">
+                  نسبة الضريبة الافتراضية (%)
                   <span class="required">*</span></label
                 >
                 <input
@@ -760,27 +861,38 @@
             </div>
             <div class="col">
               <div class="form-group">
-                <label>عملة الفاتورة <span class="required">*</span></label>
+                <label data-translate="invoice_currency"
+                  >عملة الفاتورة <span class="required">*</span></label
+                >
                 <select id="defaultCurrency" required>
-                  <option value="AED">درهم إماراتي (AED)</option>
-                  <option value="USD">دولار أمريكي (USD)</option>
-                  <option value="EUR">يورو (EUR)</option>
-                  <option value="SAR">ريال سعودي (SAR)</option>
+                  <option value="AED" data-translate="aed">
+                    درهم إماراتي (AED)
+                  </option>
+                  <option value="USD" data-translate="usd">
+                    دولار أمريكي (USD)
+                  </option>
+                  <option value="EUR" data-translate="eur">يورو (EUR)</option>
+                  <option value="SAR" data-translate="sar">
+                    ريال سعودي (SAR)
+                  </option>
                 </select>
               </div>
             </div>
           </div>
 
           <button class="btn btn-success" onclick="saveSettings()">
-            <i class="fas fa-save"></i> حفظ الإعدادات
+            <i class="fas fa-save"></i>
+            <span data-translate="save_settings">حفظ الإعدادات</span>
           </button>
 
           <button class="btn btn-outline" onclick="exportData()">
-            <i class="fas fa-download"></i> تصدير البيانات
+            <i class="fas fa-download"></i>
+            <span data-translate="export_data">تصدير البيانات</span>
           </button>
 
           <button class="btn btn-outline" onclick="importData()">
-            <i class="fas fa-upload"></i> استيراد البيانات
+            <i class="fas fa-upload"></i>
+            <span data-translate="import_data">استيراد البيانات</span>
           </button>
         </div>
       </div>
@@ -1248,11 +1360,436 @@
       let customers = [];
       let settings = {};
       let currentInvoiceNumber = 1;
+      let currentLanguage = localStorage.getItem("language") || "ar";
+
+      // Translation System
+      const translations = {
+        ar: {
+          // App
+          app_title: "نظام إدارة الفواتير",
+          app_subtitle: "نظام شامل لإدارة الفواتير والعملاء والمنتجات",
+
+          // Navigation
+          dashboard: "لوحة التحكم",
+          invoices: "الفواتير",
+          products: "المنتجات",
+          customers: "العملاء",
+          settings: "الإعدادات",
+
+          // Dashboard
+          quick_stats: "إحصائيات سريعة",
+          total_invoices: "إجمالي الفواتير",
+          total_revenue: "إجمالي الإيرادات",
+          total_customers: "إجمالي العملاء",
+          total_products: "إجمالي المنتجات",
+          recent_invoices: "أحدث الفواتير",
+          top_customers: "أفضل العملاء",
+          no_invoices: "لا توجد فواتير",
+          no_data: "لا توجد بيانات",
+
+          // Invoices
+          invoice_management: "إدارة الفواتير",
+          new_invoice: "فاتورة جديدة",
+          search_invoices: "البحث في الفواتير...",
+          no_invoices_msg: "لا توجد فواتير. ابدأ بإنشاء فاتورة جديدة.",
+          invoice_number: "رقم الفاتورة",
+          invoice_date: "تاريخ الفاتورة",
+          customer: "العميل",
+          choose_customer: "اختر عميل...",
+          payment_method: "طريقة الدفع",
+          due_days: "أيام الاستحقاق",
+          invoice_items: "عناصر الفاتورة",
+          add_item: "إضافة عنصر",
+          tax_rate: "نسبة الضريبة (%)",
+          discount: "خصم (%)",
+          subtotal: "المجموع الفرعي:",
+          discount_amount: "الخصم:",
+          tax_amount: "الضريبة:",
+          total: "المجموع الكلي:",
+          notes: "ملاحظات",
+          additional_notes: "ملاحظات إضافية...",
+          save_invoice: "حفظ الفاتورة",
+          save_print_invoice: "حفظ وطباعة",
+          cancel: "إلغاء",
+          invoice_notes: "ملاحظات:",
+          print_invoice: "طباعة الفاتورة",
+          close: "إغلاق",
+          view: "عرض",
+          edit: "تعديل",
+          delete: "حذف",
+          items: "عنصر",
+          cash: "نقداً",
+          card: "بطاقة ائتمان",
+          bank: "تحويل بنكي",
+          check: "شيك",
+          customer_undefined: "عميل غير محدد",
+
+          // Products
+          product_management: "إدارة المنتجات",
+          new_product: "منتج جديد",
+          search_products: "البحث في المنتجات...",
+          no_products_msg: "لا توجد منتجات. ابدأ بإضافة منتج جديد.",
+          product_name: "اسم المنتج/الخدمة",
+          product_name_placeholder: "اسم المنتج أو الخدمة",
+          product_description: "وصف المنتج",
+          product_description_placeholder: "وصف المنتج...",
+          price: "السعر",
+          unit: "الوحدة",
+          unit_placeholder: "قطعة، كيلو، ساعة...",
+          category: "فئة المنتج",
+          category_placeholder: "فئة المنتج",
+          stock: "الكمية المتاحة",
+          product_code: "كود المنتج",
+          product_code_placeholder: "كود المنتج (اختياري)",
+          save_product: "حفظ المنتج",
+          update_product: "تحديث المنتج",
+          no_description: "لا يوجد وصف",
+          product_code_label: "كود المنتج:",
+
+          // Customers
+          customer_management: "إدارة العملاء",
+          new_customer: "عميل جديد",
+          search_customers: "البحث في العملاء...",
+          no_customers_msg: "لا توجد عملاء. ابدأ بإضافة عميل جديد.",
+          customer_name: "اسم العميل/الشركة",
+          customer_name_placeholder: "اسم العميل أو الشركة",
+          customer_type: "نوع العميل",
+          individual: "فرد",
+          company: "شركة",
+          phone: "رقم الهاتف",
+          phone_placeholder: "رقم الهاتف",
+          email: "البريد الإلكتروني",
+          email_placeholder: "البريد الإلكتروني",
+          address: "العنوان",
+          address_placeholder: "عنوان العميل...",
+          tax_number: "رقم الضريبة",
+          tax_number_placeholder: "رقم الضريبة",
+          id_number: "رقم الهوية/التجاري",
+          id_number_placeholder: "رقم الهوية أو التجاري",
+          save_customer: "حفظ العميل",
+          update_customer: "تحديث العميل",
+          tax_number_label: "رقم الضريبة:",
+          id_number_label: "رقم الهوية:",
+
+          // Settings
+          company_settings: "إعدادات الشركة",
+          company_name: "اسم الشركة",
+          company_name_placeholder: "اسم الشركة",
+          company_phone: "رقم الهاتف",
+          company_phone_placeholder: "رقم الهاتف",
+          company_email: "البريد الإلكتروني",
+          company_email_placeholder: "البريد الإلكتروني",
+          company_website: "الموقع الإلكتروني",
+          company_website_placeholder: "الموقع الإلكتروني",
+          company_address: "عنوان الشركة",
+          company_address_placeholder: "عنوان الشركة الكامل",
+          default_tax_rate: "نسبة الضريبة الافتراضية (%)",
+          invoice_currency: "عملة الفاتورة",
+          aed: "درهم إماراتي (AED)",
+          usd: "دولار أمريكي (USD)",
+          eur: "يورو (EUR)",
+          sar: "ريال سعودي (SAR)",
+          save_settings: "حفظ الإعدادات",
+          export_data: "تصدير البيانات",
+          import_data: "استيراد البيانات",
+
+          // Validation Messages
+          field_required: "هذا الحقل مطلوب",
+          invalid_email: "يرجى إدخال بريد إلكتروني صحيح",
+          invalid_number: "يرجى إدخال رقم صحيح أكبر من أو يساوي صفر",
+          fix_form_errors: "يرجى تصحيح الأخطاء في النموذج",
+          min_one_item: "يجب أن تحتوي الفاتورة على عنصر واحد على الأقل",
+
+          // Success Messages
+          product_saved: "تم حفظ المنتج بنجاح",
+          product_updated: "تم تحديث المنتج بنجاح",
+          product_deleted: "تم حذف المنتج بنجاح",
+          customer_saved: "تم حفظ العميل بنجاح",
+          customer_updated: "تم تحديث العميل بنجاح",
+          customer_deleted: "تم حذف العميل بنجاح",
+          invoice_saved: "تم حفظ الفاتورة بنجاح",
+          invoice_deleted: "تم حذف الفاتورة بنجاح",
+          settings_saved: "تم حفظ الإعدادات بنجاح",
+          data_exported: "تم تصدير البيانات بنجاح",
+          data_imported: "تم استيراد البيانات بنجاح",
+
+          // Error Messages
+          invoice_number_required: "يرجى إدخال رقم الفاتورة",
+          invoice_date_required: "يرجى إدخال تاريخ الفاتورة",
+          invoice_items_required: "يرجى إضافة عنصر واحد على الأقل للفاتورة",
+          import_error: "خطأ في استيراد البيانات. تأكد من أن الملف صحيح.",
+
+          // Confirmations
+          delete_product: "هل أنت متأكد من حذف هذا المنتج؟",
+          delete_customer: "هل أنت متأكد من حذف هذا العميل؟",
+          delete_invoice: "هل أنت متأكد من حذف هذه الفاتورة؟",
+
+          // Info Messages
+          edit_invoice_coming: "تعديل الفواتير سيتم إضافته في الإصدار القادم",
+        },
+        en: {
+          // App
+          app_title: "Invoice Management System",
+          app_subtitle:
+            "Comprehensive system for managing invoices, customers and products",
+
+          // Navigation
+          dashboard: "Dashboard",
+          invoices: "Invoices",
+          products: "Products",
+          customers: "Customers",
+          settings: "Settings",
+
+          // Dashboard
+          quick_stats: "Quick Statistics",
+          total_invoices: "Total Invoices",
+          total_revenue: "Total Revenue",
+          total_customers: "Total Customers",
+          total_products: "Total Products",
+          recent_invoices: "Recent Invoices",
+          top_customers: "Top Customers",
+          no_invoices: "No invoices",
+          no_data: "No data",
+
+          // Invoices
+          invoice_management: "Invoice Management",
+          new_invoice: "New Invoice",
+          search_invoices: "Search invoices...",
+          no_invoices_msg: "No invoices. Start by creating a new invoice.",
+          invoice_number: "Invoice Number",
+          invoice_date: "Invoice Date",
+          customer: "Customer",
+          choose_customer: "Choose customer...",
+          payment_method: "Payment Method",
+          due_days: "Due Days",
+          invoice_items: "Invoice Items",
+          add_item: "Add Item",
+          tax_rate: "Tax Rate (%)",
+          discount: "Discount (%)",
+          subtotal: "Subtotal:",
+          discount_amount: "Discount:",
+          tax_amount: "Tax:",
+          total: "Total:",
+          notes: "Notes",
+          additional_notes: "Additional notes...",
+          save_invoice: "Save Invoice",
+          save_print_invoice: "Save & Print",
+          cancel: "Cancel",
+          invoice_notes: "Notes:",
+          print_invoice: "Print Invoice",
+          close: "Close",
+          view: "View",
+          edit: "Edit",
+          delete: "Delete",
+          items: "items",
+          cash: "Cash",
+          card: "Credit Card",
+          bank: "Bank Transfer",
+          check: "Check",
+          customer_undefined: "Undefined Customer",
+
+          // Products
+          product_management: "Product Management",
+          new_product: "New Product",
+          search_products: "Search products...",
+          no_products_msg: "No products. Start by adding a new product.",
+          product_name: "Product/Service Name",
+          product_name_placeholder: "Product or service name",
+          product_description: "Product Description",
+          product_description_placeholder: "Product description...",
+          price: "Price",
+          unit: "Unit",
+          unit_placeholder: "piece, kg, hour...",
+          category: "Product Category",
+          category_placeholder: "Product category",
+          stock: "Available Quantity",
+          product_code: "Product Code",
+          product_code_placeholder: "Product code (optional)",
+          save_product: "Save Product",
+          update_product: "Update Product",
+          no_description: "No description",
+          product_code_label: "Product Code:",
+
+          // Customers
+          customer_management: "Customer Management",
+          new_customer: "New Customer",
+          search_customers: "Search customers...",
+          no_customers_msg: "No customers. Start by adding a new customer.",
+          customer_name: "Customer/Company Name",
+          customer_name_placeholder: "Customer or company name",
+          customer_type: "Customer Type",
+          individual: "Individual",
+          company: "Company",
+          phone: "Phone Number",
+          phone_placeholder: "Phone number",
+          email: "Email",
+          email_placeholder: "Email address",
+          address: "Address",
+          address_placeholder: "Customer address...",
+          tax_number: "Tax Number",
+          tax_number_placeholder: "Tax number",
+          id_number: "ID/Trade Number",
+          id_number_placeholder: "ID or trade number",
+          save_customer: "Save Customer",
+          update_customer: "Update Customer",
+          tax_number_label: "Tax Number:",
+          id_number_label: "ID Number:",
+
+          // Settings
+          company_settings: "Company Settings",
+          company_name: "Company Name",
+          company_name_placeholder: "Company name",
+          company_phone: "Phone Number",
+          company_phone_placeholder: "Phone number",
+          company_email: "Email",
+          company_email_placeholder: "Email address",
+          company_website: "Website",
+          company_website_placeholder: "Website URL",
+          company_address: "Company Address",
+          company_address_placeholder: "Full company address",
+          default_tax_rate: "Default Tax Rate (%)",
+          invoice_currency: "Invoice Currency",
+          aed: "UAE Dirham (AED)",
+          usd: "US Dollar (USD)",
+          eur: "Euro (EUR)",
+          sar: "Saudi Riyal (SAR)",
+          save_settings: "Save Settings",
+          export_data: "Export Data",
+          import_data: "Import Data",
+
+          // Validation Messages
+          field_required: "This field is required",
+          invalid_email: "Please enter a valid email address",
+          invalid_number:
+            "Please enter a valid number greater than or equal to zero",
+          fix_form_errors: "Please fix the errors in the form",
+          min_one_item: "Invoice must contain at least one item",
+
+          // Success Messages
+          product_saved: "Product saved successfully",
+          product_updated: "Product updated successfully",
+          product_deleted: "Product deleted successfully",
+          customer_saved: "Customer saved successfully",
+          customer_updated: "Customer updated successfully",
+          customer_deleted: "Customer deleted successfully",
+          invoice_saved: "Invoice saved successfully",
+          invoice_deleted: "Invoice deleted successfully",
+          settings_saved: "Settings saved successfully",
+          data_exported: "Data exported successfully",
+          data_imported: "Data imported successfully",
+
+          // Error Messages
+          invoice_number_required: "Please enter invoice number",
+          invoice_date_required: "Please enter invoice date",
+          invoice_items_required: "Please add at least one item to the invoice",
+          import_error: "Error importing data. Make sure the file is correct.",
+
+          // Confirmations
+          delete_product: "Are you sure you want to delete this product?",
+          delete_customer: "Are you sure you want to delete this customer?",
+          delete_invoice: "Are you sure you want to delete this invoice?",
+
+          // Info Messages
+          edit_invoice_coming:
+            "Invoice editing will be added in the next version",
+        },
+      };
+
+      // Translation Functions
+      function translatePage(lang) {
+        const elements = document.querySelectorAll("[data-translate]");
+        elements.forEach((element) => {
+          const key = element.getAttribute("data-translate");
+          if (translations[lang] && translations[lang][key]) {
+            element.textContent = translations[lang][key];
+          }
+        });
+
+        // Update page direction
+        document.body.style.direction = lang === "ar" ? "rtl" : "ltr";
+        document.documentElement.lang = lang;
+
+        // Update active language button
+        document.querySelectorAll(".lang-btn").forEach((btn) => {
+          btn.classList.remove("active");
+        });
+        document.getElementById(lang + "Btn").classList.add("active");
+
+        // Update placeholders
+        updatePlaceholders(lang);
+      }
+
+      function updatePlaceholders(lang) {
+        const placeholderMap = {
+          productName: "product_name_placeholder",
+          productDescription: "product_description_placeholder",
+          productUnit: "unit_placeholder",
+          productCategory: "category_placeholder",
+          productCode: "product_code_placeholder",
+          customerName: "customer_name_placeholder",
+          customerPhone: "phone_placeholder",
+          customerEmail: "email_placeholder",
+          customerAddress: "address_placeholder",
+          customerTaxNumber: "tax_number_placeholder",
+          customerIdNumber: "id_number_placeholder",
+          companyName: "company_name_placeholder",
+          companyPhone: "company_phone_placeholder",
+          companyEmail: "company_email_placeholder",
+          companyWebsite: "company_website_placeholder",
+          companyAddress: "company_address_placeholder",
+          invoiceSearch: "search_invoices",
+          productSearch: "search_products",
+          customerSearch: "search_customers",
+          invoiceNotes: "additional_notes",
+        };
+
+        Object.keys(placeholderMap).forEach((id) => {
+          const element = document.getElementById(id);
+          if (
+            element &&
+            translations[lang] &&
+            translations[lang][placeholderMap[id]]
+          ) {
+            element.placeholder = translations[lang][placeholderMap[id]];
+          }
+        });
+
+        // Update select options
+        document
+          .querySelectorAll("option[data-translate]")
+          .forEach((option) => {
+            const key = option.getAttribute("data-translate");
+            if (translations[lang] && translations[lang][key]) {
+              option.textContent = translations[lang][key];
+            }
+          });
+      }
+
+      function changeLanguage(lang) {
+        currentLanguage = lang;
+        localStorage.setItem("language", lang);
+        translatePage(lang);
+        showAlert(
+          lang === "ar"
+            ? "تم تغيير اللغة إلى العربية"
+            : "Language changed to English",
+          "success",
+          3000
+        );
+      }
+
+      function getTranslation(key) {
+        return translations[currentLanguage] &&
+          translations[currentLanguage][key]
+          ? translations[currentLanguage][key]
+          : key;
+      }
 
       // Initialize the application
       document.addEventListener("DOMContentLoaded", function () {
         loadData();
         initializeApp();
+        translatePage(currentLanguage); // Apply saved language
         updateDashboard();
         loadLists();
       });
@@ -1360,8 +1897,9 @@
         const container = document.getElementById("recentInvoices");
 
         if (recentInvoices.length === 0) {
-          container.innerHTML =
-            '<p style="color: #6c757d; text-align: center;">لا توجد فواتير</p>';
+          container.innerHTML = `<p style="color: #6c757d; text-align: center;">${getTranslation(
+            "no_invoices"
+          )}</p>`;
           return;
         }
 
@@ -1403,8 +1941,9 @@
         const container = document.getElementById("topCustomers");
 
         if (topCustomers.length === 0) {
-          container.innerHTML =
-            '<p style="color: #6c757d; text-align: center;">لا توجد بيانات</p>';
+          container.innerHTML = `<p style="color: #6c757d; text-align: center;">${getTranslation(
+            "no_data"
+          )}</p>`;
           return;
         }
 
@@ -1440,7 +1979,7 @@
 
       function saveProduct() {
         if (!validateForm("productModal")) {
-          showAlert("يرجى تصحيح الأخطاء في النموذج", "error");
+          showAlert(getTranslation("fix_form_errors"), "error");
           return;
         }
 
@@ -1463,15 +2002,16 @@
         loadProductsList();
         closeModal("productModal");
         clearValidation("productModal");
-        showAlert("تم حفظ المنتج بنجاح", "success");
+        showAlert(getTranslation("product_saved"), "success");
       }
 
       function loadProductsList() {
         const container = document.getElementById("productsList");
 
         if (products.length === 0) {
-          container.innerHTML =
-            '<p style="color: #6c757d; text-align: center; padding: 20px;">لا توجد منتجات. ابدأ بإضافة منتج جديد.</p>';
+          container.innerHTML = `<p style="color: #6c757d; text-align: center; padding: 20px;">${getTranslation(
+            "no_products_msg"
+          )}</p>`;
           return;
         }
 
@@ -1565,15 +2105,15 @@
         loadProductsList();
         closeModal("productModal");
         clearValidation("productModal");
-        showAlert("تم تحديث المنتج بنجاح", "success");
+        showAlert(getTranslation("product_updated"), "success");
       }
 
       function deleteProduct(productId) {
-        if (confirm("هل أنت متأكد من حذف هذا المنتج؟")) {
+        if (confirm(getTranslation("delete_product"))) {
           products = products.filter((p) => p.id !== productId);
           saveData();
           loadProductsList();
-          showAlert("تم حذف المنتج بنجاح", "success");
+          showAlert(getTranslation("product_deleted"), "success");
         }
       }
 
@@ -1591,7 +2131,7 @@
 
       function saveCustomer() {
         if (!validateForm("customerModal")) {
-          showAlert("يرجى تصحيح الأخطاء في النموذج", "error");
+          showAlert(getTranslation("fix_form_errors"), "error");
           return;
         }
 
@@ -1612,15 +2152,16 @@
         loadCustomersList();
         closeModal("customerModal");
         clearValidation("customerModal");
-        showAlert("تم حفظ العميل بنجاح", "success");
+        showAlert(getTranslation("customer_saved"), "success");
       }
 
       function loadCustomersList() {
         const container = document.getElementById("customersList");
 
         if (customers.length === 0) {
-          container.innerHTML =
-            '<p style="color: #6c757d; text-align: center; padding: 20px;">لا توجد عملاء. ابدأ بإضافة عميل جديد.</p>';
+          container.innerHTML = `<p style="color: #6c757d; text-align: center; padding: 20px;">${getTranslation(
+            "no_customers_msg"
+          )}</p>`;
           return;
         }
 
@@ -1719,15 +2260,15 @@
         loadCustomersList();
         closeModal("customerModal");
         clearValidation("customerModal");
-        showAlert("تم تحديث العميل بنجاح", "success");
+        showAlert(getTranslation("customer_updated"), "success");
       }
 
       function deleteCustomer(customerId) {
-        if (confirm("هل أنت متأكد من حذف هذا العميل؟")) {
+        if (confirm(getTranslation("delete_customer"))) {
           customers = customers.filter((c) => c.id !== customerId);
           saveData();
           loadCustomersList();
-          showAlert("تم حذف العميل بنجاح", "success");
+          showAlert(getTranslation("customer_deleted"), "success");
         }
       }
 
@@ -1886,7 +2427,7 @@
           button.closest(".invoice-item").remove();
           calculateInvoiceTotal();
         } else {
-          showAlert("يجب أن تحتوي الفاتورة على عنصر واحد على الأقل", "warning");
+          showAlert(getTranslation("min_one_item"), "warning");
         }
       }
 
@@ -1927,7 +2468,7 @@
         loadInvoicesList();
         closeModal("invoiceModal");
         clearValidation("invoiceModal");
-        showAlert("تم حفظ الفاتورة بنجاح", "success");
+        showAlert(getTranslation("invoice_saved"), "success");
         updateDashboard();
       }
 
@@ -2002,15 +2543,15 @@
 
       function validateInvoice(invoiceData) {
         if (!invoiceData.number) {
-          showAlert("يرجى إدخال رقم الفاتورة", "error");
+          showAlert(getTranslation("invoice_number_required"), "error");
           return false;
         }
         if (!invoiceData.date) {
-          showAlert("يرجى إدخال تاريخ الفاتورة", "error");
+          showAlert(getTranslation("invoice_date_required"), "error");
           return false;
         }
         if (invoiceData.items.length === 0) {
-          showAlert("يرجى إضافة عنصر واحد على الأقل للفاتورة", "error");
+          showAlert(getTranslation("invoice_items_required"), "error");
           return false;
         }
         return true;
@@ -2020,8 +2561,9 @@
         const container = document.getElementById("invoicesList");
 
         if (invoices.length === 0) {
-          container.innerHTML =
-            '<p style="color: #6c757d; text-align: center; padding: 20px;">لا توجد فواتير. ابدأ بإنشاء فاتورة جديدة.</p>';
+          container.innerHTML = `<p style="color: #6c757d; text-align: center; padding: 20px;">${getTranslation(
+            "no_invoices_msg"
+          )}</p>`;
           return;
         }
 
@@ -2201,15 +2743,15 @@
 
       function editInvoice(invoiceId) {
         // Implementation for editing invoices
-        showAlert("تعديل الفواتير سيتم إضافته في الإصدار القادم", "info");
+        showAlert(getTranslation("edit_invoice_coming"), "info");
       }
 
       function deleteInvoice(invoiceId) {
-        if (confirm("هل أنت متأكد من حذف هذه الفاتورة؟")) {
+        if (confirm(getTranslation("delete_invoice"))) {
           invoices = invoices.filter((i) => i.id !== invoiceId);
           saveData();
           loadInvoicesList();
-          showAlert("تم حذف الفاتورة بنجاح", "success");
+          showAlert(getTranslation("invoice_deleted"), "success");
           updateDashboard();
         }
       }
@@ -2232,7 +2774,7 @@
         };
 
         saveData();
-        showAlert("تم حفظ الإعدادات بنجاح", "success");
+        showAlert(getTranslation("settings_saved"), "success");
       }
 
       function exportData() {
@@ -2277,12 +2819,9 @@
               saveData();
               loadLists();
               updateDashboard();
-              showAlert("تم استيراد البيانات بنجاح", "success");
+              showAlert(getTranslation("data_imported"), "success");
             } catch (error) {
-              showAlert(
-                "خطأ في استيراد البيانات. تأكد من أن الملف صحيح.",
-                "error"
-              );
+              showAlert(getTranslation("import_error"), "error");
             }
           };
           reader.readAsText(file);
@@ -2501,7 +3040,7 @@
             formGroup.classList.add("error");
             const errorMsg = document.createElement("div");
             errorMsg.className = "error-message";
-            errorMsg.textContent = "هذا الحقل مطلوب";
+            errorMsg.textContent = getTranslation("field_required");
             formGroup.appendChild(errorMsg);
             isValid = false;
           } else {
@@ -2515,7 +3054,7 @@
                 formGroup.classList.add("error");
                 const errorMsg = document.createElement("div");
                 errorMsg.className = "error-message";
-                errorMsg.textContent = "يرجى إدخال بريد إلكتروني صحيح";
+                errorMsg.textContent = getTranslation("invalid_email");
                 formGroup.appendChild(errorMsg);
                 isValid = false;
               }
@@ -2528,8 +3067,7 @@
                 formGroup.classList.add("error");
                 const errorMsg = document.createElement("div");
                 errorMsg.className = "error-message";
-                errorMsg.textContent =
-                  "يرجى إدخال رقم صحيح أكبر من أو يساوي صفر";
+                errorMsg.textContent = getTranslation("invalid_number");
                 formGroup.appendChild(errorMsg);
                 isValid = false;
               }
