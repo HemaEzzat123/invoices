@@ -236,6 +236,9 @@
         border-radius: 12px;
         background: #fff;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        direction: ltr;
+        max-width: 800px;
+        margin: 20px auto;
       }
       .center {
         text-align: center;
@@ -565,6 +568,7 @@
       @media print {
         body {
           background: white;
+          font-family: "Segoe UI", Tahoma, Arial, sans-serif;
         }
         .nav-tabs,
         .controls,
@@ -580,6 +584,41 @@
         .invoice {
           box-shadow: none;
           border: 1px solid #000;
+          margin: 0;
+          padding: 20px;
+        }
+        .invoice-header {
+          border-bottom: 2px solid #667eea;
+          padding-bottom: 20px;
+          margin-bottom: 30px;
+        }
+        .invoice-meta {
+          text-align: right;
+        }
+        table {
+          width: 100%;
+          border-collapse: collapse;
+          margin: 20px 0;
+        }
+        th,
+        td {
+          border: 1px solid #ddd;
+          padding: 10px;
+          text-align: left;
+        }
+        th {
+          background-color: #f8f9fa;
+          font-weight: bold;
+        }
+        .total td {
+          background-color: #e3f2fd;
+          font-weight: bold;
+        }
+        #invoiceDisplay {
+          display: block !important;
+        }
+        .app {
+          display: none !important;
         }
       }
     </style>
@@ -1269,39 +1308,95 @@
     <div id="invoiceDisplay" class="invoice" style="display: none">
       <div class="invoice-header">
         <div class="business-info">
-          <h3 id="displayCompanyName">اسم الشركة</h3>
-          <div id="displayCompanyAddress">العنوان</div>
-          <div>الهاتف: <span id="displayCompanyPhone">---</span></div>
-          <div>
-            البريد الإلكتروني: <span id="displayCompanyEmail">---</span>
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              gap: 15px;
+              margin-bottom: 15px;
+            "
+          >
+            <img
+              src="7da0182d-1b3e-404e-8fb9-27f47dbd6113.jfif"
+              alt="Company Logo"
+              style="
+                width: 80px;
+                height: 80px;
+                object-fit: contain;
+                border-radius: 8px;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+              "
+            />
+            <div>
+              <h3
+                id="displayCompanyName"
+                style="margin: 0; font-size: 1.8em; color: #667eea"
+              >
+                Company Name
+              </h3>
+              <div
+                id="displayCompanyAddress"
+                style="color: #6c757d; margin-top: 5px"
+              >
+                Address
+              </div>
+            </div>
+          </div>
+          <div style="display: flex; gap: 20px; flex-wrap: wrap">
+            <div>
+              <strong>Phone:</strong> <span id="displayCompanyPhone">---</span>
+            </div>
+            <div>
+              <strong>Email:</strong> <span id="displayCompanyEmail">---</span>
+            </div>
           </div>
         </div>
         <div class="invoice-meta">
-          <h2 style="color: #667eea; margin: 0">فاتورة ضريبية</h2>
-          <div style="margin-top: 10px">
+          <h2 style="color: #667eea; margin: 0; text-align: left">
+            TAX INVOICE
+          </h2>
+          <div style="margin-top: 10px; text-align: left">
             <div>
-              رقم الفاتورة: <strong id="displayInvoiceNumber">---</strong>
+              <strong>Invoice No:</strong>
+              <span id="displayInvoiceNumber">---</span>
             </div>
-            <div>التاريخ: <span id="displayInvoiceDate">---</span></div>
-            <div>تاريخ الاستحقاق: <span id="displayDueDate">---</span></div>
-            <div>طريقة الدفع: <span id="displayPaymentMethod">---</span></div>
+            <div>
+              <strong>Date:</strong> <span id="displayInvoiceDate">---</span>
+            </div>
+            <div>
+              <strong>Due Date:</strong> <span id="displayDueDate">---</span>
+            </div>
+            <div>
+              <strong>Payment Method:</strong>
+              <span id="displayPaymentMethod">---</span>
+            </div>
           </div>
         </div>
       </div>
 
       <div style="margin: 30px 0">
-        <h4>العميل:</h4>
-        <div id="displayCustomerInfo"></div>
+        <h4 style="text-align: left; margin-bottom: 15px; color: #495057">
+          BILL TO:
+        </h4>
+        <div
+          id="displayCustomerInfo"
+          style="
+            text-align: left;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+          "
+        ></div>
       </div>
 
-      <table>
+      <table style="direction: ltr">
         <thead>
           <tr>
-            <th>الوصف</th>
-            <th style="text-align: center">الكمية</th>
-            <th style="text-align: center">الوحدة</th>
-            <th style="text-align: center">السعر</th>
-            <th style="text-align: left">الإجمالي</th>
+            <th style="text-align: left">Description</th>
+            <th style="text-align: center">Quantity</th>
+            <th style="text-align: center">Unit</th>
+            <th style="text-align: center">Price</th>
+            <th style="text-align: right">Total</th>
           </tr>
         </thead>
         <tbody id="displayItemsBody"></tbody>
@@ -1310,23 +1405,23 @@
       <div style="margin-top: 30px">
         <div style="display: flex; justify-content: flex-end">
           <div style="width: 300px">
-            <table>
+            <table style="direction: ltr">
               <tbody>
                 <tr>
-                  <td style="text-align: right">المجموع الفرعي:</td>
-                  <td style="text-align: left" id="displaySubtotal">0.00</td>
+                  <td style="text-align: right"><strong>Subtotal:</strong></td>
+                  <td style="text-align: right" id="displaySubtotal">0.00</td>
                 </tr>
                 <tr>
-                  <td style="text-align: right">الخصم:</td>
-                  <td style="text-align: left" id="displayDiscount">0.00</td>
+                  <td style="text-align: right"><strong>Discount:</strong></td>
+                  <td style="text-align: right" id="displayDiscount">0.00</td>
                 </tr>
                 <tr>
-                  <td style="text-align: right">الضريبة:</td>
-                  <td style="text-align: left" id="displayTax">0.00</td>
+                  <td style="text-align: right"><strong>Tax:</strong></td>
+                  <td style="text-align: right" id="displayTax">0.00</td>
                 </tr>
                 <tr class="total">
-                  <td style="text-align: right">المجموع الكلي:</td>
-                  <td style="text-align: left" id="displayTotal">0.00</td>
+                  <td style="text-align: right"><strong>TOTAL:</strong></td>
+                  <td style="text-align: right" id="displayTotal">0.00</td>
                 </tr>
               </tbody>
             </table>
@@ -2657,30 +2752,32 @@
 
         document.getElementById("displayPaymentMethod").textContent =
           invoice.paymentMethod === "cash"
-            ? "نقداً"
+            ? "Cash"
             : invoice.paymentMethod === "card"
-            ? "بطاقة ائتمان"
+            ? "Credit Card"
             : invoice.paymentMethod === "bank"
-            ? "تحويل بنكي"
-            : "شيك";
+            ? "Bank Transfer"
+            : "Check";
 
         // Display customer info
         const customer = customers.find((c) => c.id === invoice.customerId);
         document.getElementById("displayCustomerInfo").innerHTML = `
-          <div><strong>${invoice.customerName}</strong></div>
+          <div style="font-size: 1.1em; margin-bottom: 10px;"><strong>${
+            invoice.customerName
+          }</strong></div>
           ${
             customer && customer.phone
-              ? `<div>الهاتف: ${customer.phone}</div>`
+              ? `<div style="margin-bottom: 5px;"><strong>Phone:</strong> ${customer.phone}</div>`
               : ""
           }
           ${
             customer && customer.email
-              ? `<div>البريد الإلكتروني: ${customer.email}</div>`
+              ? `<div style="margin-bottom: 5px;"><strong>Email:</strong> ${customer.email}</div>`
               : ""
           }
           ${
             customer && customer.address
-              ? `<div>العنوان: ${customer.address}</div>`
+              ? `<div style="margin-bottom: 5px;"><strong>Address:</strong> ${customer.address}</div>`
               : ""
           }
         `;
@@ -2691,11 +2788,11 @@
           .map(
             (item) => `
           <tr>
-            <td>${item.productName}</td>
+            <td style="text-align: left;">${item.productName}</td>
             <td style="text-align: center;">${item.quantity}</td>
             <td style="text-align: center;">---</td>
             <td style="text-align: center;">${formatCurrency(item.price)}</td>
-            <td style="text-align: left;">${formatCurrency(item.total)}</td>
+            <td style="text-align: right;">${formatCurrency(item.total)}</td>
           </tr>
         `
           )
@@ -2718,9 +2815,9 @@
         // Display notes
         if (invoice.notes) {
           document.getElementById("displayNotes").innerHTML = `
-            <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px;">
-              <h4>ملاحظات:</h4>
-              <p>${invoice.notes}</p>
+            <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; text-align: left;">
+              <h4 style="margin: 0 0 10px 0; color: #495057;">Notes:</h4>
+              <p style="margin: 0; line-height: 1.5;">${invoice.notes}</p>
             </div>
           `;
         } else {
